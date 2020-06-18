@@ -45,6 +45,9 @@ ext {
     //Material
     materialVersion = '1.0.0'
 
+    //Pull to refresh
+    pullToRefreshVersion = '3.2.3'
+
     //Android X
     fragmentAndroidXVersion = '1.0.0'
     lifecycleViewmodelAndroidXVersion = '1.0.0'

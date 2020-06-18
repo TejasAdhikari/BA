@@ -41,6 +41,7 @@ import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.sample.chat.java.R;
 import com.quickblox.sample.chat.java.managers.DialogsManager;
+import com.quickblox.sample.chat.java.services.LoginService;
 import com.quickblox.sample.chat.java.ui.adapter.AttachmentPreviewAdapter;
 import com.quickblox.sample.chat.java.ui.adapter.ChatAdapter;
 import com.quickblox.sample.chat.java.ui.adapter.listeners.AttachClickListener;
@@ -61,6 +62,7 @@ import com.quickblox.sample.chat.java.utils.qb.VerboseQbChatConnectionListener;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
+import com.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 
 import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.SmackException;
@@ -133,6 +135,8 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
     private ArrayList<QBChatMessage> unShownMessages;
     private int skipPagination = 0;
     private Boolean checkAdapterInit = false;
+    private SharedPrefsHelper sharedPrefsHelper;
+
 
     public static void startForResult(Activity activity, int code, QBChatDialog dialogId) {
         Intent intent = new Intent(activity, ChatActivity.class);
@@ -152,6 +156,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         SharedPrefsHelper.getInstance().delete(IS_IN_BACKGROUND);
+        sharedPrefsHelper = SharedPrefsHelper.getInstance();
         Log.v(TAG, "onCreate ChatActivity on Thread ID = " + Thread.currentThread().getId());
 
         if (!ChatHelper.getInstance().isLogged()) {
@@ -326,7 +331,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         int id = item.getItemId();
         switch (id) {
             case R.id.menu_video_call:
-                videocall();
+                videoCall();
                 return true;
 
             case R.id.menu_chat_action_info:
@@ -486,8 +491,19 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         });
     }
 
-    private void videocall(){
+    private void videoCall(){
         Toast.makeText(this, "Video Calling ...", Toast.LENGTH_SHORT).show();
+//        LoginService.start(ChatActivity.this, sharedPrefsHelper.getQbUser());
+//        OpponentsActivity.start(ChatActivity.this);
+//        if (sharedPrefsHelper.hasQbUser()) {
+//            LoginService.start(ChatActivity.this, sharedPrefsHelper.getQbUser());
+//            OpponentsActivity.start(ChatActivity.this);
+//        } else {
+//            LoginActivity.start(ChatActivity.this);
+//        }
+//        Intent vcIntent = new Intent(ChatActivity.this, SplashActivity1.class);
+//        startActivity(vcIntent);
+        finish();
     }
 
 
